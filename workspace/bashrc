@@ -1,0 +1,16 @@
+if [ -f "/etc/bash_completion" ] ; then
+    . "/etc/bash_completion"
+fi
+
+if [ -d "/srv/app/vendor/bin" ]; then
+  export PATH="/srv/vendor/bin:$PATH"
+fi
+
+for file in ~/.source.d/*.sh ; do
+    if [ -f "$file" ] ; then
+        . "$file"
+    fi
+done
+
+export GPG_TTY=$(tty)
+export PATH="~/.composer/vendor/bin:$PATH"

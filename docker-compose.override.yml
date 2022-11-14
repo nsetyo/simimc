@@ -1,0 +1,16 @@
+version: "3.4"
+
+# Development environment override
+services:
+  app-server:
+    labels:
+      caddy: ${COMPOSE_PROJECT_NAME}.localhost
+      caddy.reverse_proxy: "{{upstreams}}"
+  database-admin:
+    labels:
+      caddy: db.${COMPOSE_PROJECT_NAME}.localhost
+      caddy.reverse_proxy: "{{upstreams 8080}}"
+  kibana:
+    labels:
+      caddy: kibana.${COMPOSE_PROJECT_NAME}.localhost
+      caddy.reverse_proxy: "{{upstreams 5601}}"
