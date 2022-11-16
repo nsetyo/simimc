@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <arg
+        name="basepath"
+        value="." />
+    <arg
+        name="cache"
+        value=".phpcs-cache" />
+    <arg name="colors" />
+    <arg
+        name="extensions"
+        value="php" />
+
+    <file>app/</file>
+    <file>config/</file>
+    <file>database/</file>
+    <file>lang/</file>
+    <file>routes/</file>
+    <file>tests/</file>
+
+    <exclude-pattern>vendor/*</exclude-pattern>
+
+
+    <rule ref="PSR12" />
+
+    <rule ref="Generic.Arrays.ArrayIndent" />
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>migrations/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property
+                name="ignoreIndentationTokens"
+                type="array">
+                <element value="T_INLINE_ELSE" />
+                <element value="T_INLINE_THEN" />
+                <element value="T_STRING" />
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation" />
+    <rule ref="SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement" />
+    <rule ref="SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace">
+        <properties>
+            <property
+                name="spacesAroundBrackets"
+                value="0" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma" />
+    <rule ref="SlevomatCodingStandard.Classes.ClassMemberSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.ConstantSpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+        <properties>
+            <property
+                name="linesCountAfterOpeningBrace"
+                value="0" />
+            <property
+                name="linesCountBeforeClosingBrace"
+                value="0" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.MethodSpacing">
+        <properties>
+            <property
+                name="minLinesCount"
+                value="1" />
+            <property
+                name="maxLinesCount"
+                value="1" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.PropertySpacing" />
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseDeclaration" />
+    <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
+        <properties>
+            <property
+                name="tokensToCheck"
+                type="array">
+                <element value="T_DO" />
+                <element value="T_FOR" />
+                <element value="T_FOREACH" />
+                <element value="T_IF" />
+                <element value="T_SWITCH" />
+                <element value="T_TRY" />
+                <element value="T_WHILE" />
+            </property>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+        <properties>
+            <property
+                name="linesCountBeforeWhenFirstInCaseOrDefault"
+                value="0" />
+            <property
+                name="linesCountAfterWhenLastInCaseOrDefault"
+                value="1" />
+            <property
+                name="linesCountAfterWhenLastInLastCaseOrDefault"
+                value="0" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+        <properties>
+            <property
+                name="lineLengthLimit"
+                value="100" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator" />
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
+        <properties>
+            <property
+                name="caseSensitive"
+                value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash" />
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <property
+                name="searchAnnotations"
+                value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property
+                name="newlinesCountBetweenOpenTagAndDeclare"
+                value="2" />
+            <property
+                name="spacesCountAroundEqualsSign"
+                value="0" />
+            <property
+                name="newlinesCountAfterDeclare"
+                value="2" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.LongTypeHints" />
+    <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition" />
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint" />
+    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
+        <properties>
+            <property
+                name="nullPosition"
+                value="last" />
+            <property
+                name="shortNullable"
+                value="no" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint" />
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property
+                name="ignoreSpacesBeforeAssignment"
+                value="true" />
+            <property
+                name="ignoreSpacesInAnnotation"
+                value="true" />
+            <property
+                name="ignoreSpacesInComment"
+                value="true" />
+            <property
+                name="ignoreSpacesInParameters"
+                value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable" />
+    <rule ref="SlevomatCodingStandard.Variables.UnusedVariable" />
+    <rule ref="SlevomatCodingStandard.Variables.UselessVariable" />
+
+    <rule ref="Squiz.Arrays.ArrayDeclaration.CloseBraceNewLine" />
+    <rule ref="Squiz.Strings.DoubleQuoteUsage" />
+    <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
+        <properties>
+            <property
+                name="ignoreNewlines"
+                value="true" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.FunctionOpeningBraceSpace" />
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace">
+        <properties>
+            <property
+                name="ignoreBlankLines"
+                value="false" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines">
+        <severity>5</severity>
+    </rule>
+</ruleset>
