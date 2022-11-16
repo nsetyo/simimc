@@ -1,0 +1,9 @@
+parameters:
+    level: 8
+    paths:
+        - config
+        - migrations
+        - src
+        - tests
+    excludePaths:
+        - vendor/*

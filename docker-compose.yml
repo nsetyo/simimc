@@ -81,8 +81,8 @@ services:
         INSTALL_XDEBUG: ${PHP_INSTALL_XDEBUG:-false}
         INSTALL_ZIP_ARCHIVE: ${PHP_INSTALL_ZIP_ARCHIVE:-false}
     working_dir: /srv/app
-    environment:
-      - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:/usr/local/etc/php/local.d
+    env_file:
+      - ./env/app.env
     volumes:
       - { <<: [ *bashrc  ] }
       - { <<: [ *gnupg   ] }
@@ -99,6 +99,7 @@ services:
     environment:
       - ADMINER_DEFAULT_SERVER=database
     networks:
+      - default
       - public
     depends_on:
       - database
