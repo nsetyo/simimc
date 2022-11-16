@@ -388,8 +388,8 @@ RUN if [ ${INSTALL_SUPERVISOR} = true ]; then \
 ARG INSTALL_SYMFONY_CLI=false
 
 RUN if [ ${INSTALL_SYMFONY_CLI} = true ]; then \
-    curl https://get.symfony.com/cli/installer | bash && \
-    mv $HOME/.symfony/bin/symfony /usr/local/bin/symfony \
+    curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash && \
+    apt install symfony-cli -y \
     ;fi
 
 ################################################################################

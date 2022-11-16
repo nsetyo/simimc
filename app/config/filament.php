@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Livewire\Auth\Login;
 use Filament\AvatarProviders\UiAvatarsProvider;
-use Filament\Http\Livewire\Auth\Login;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -265,7 +265,7 @@ return [
     |
     */
 
-    'favicon' => null,
+    'favicon' => '/logo.svg',
 
     /*
     |--------------------------------------------------------------------------

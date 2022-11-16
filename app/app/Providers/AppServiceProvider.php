@@ -25,8 +25,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Filament::pushMeta([
-            new HtmlString('<link rel="icon" href="logo.svg" type="image/svg" />'),
-        ]);
     }
 }

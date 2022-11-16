@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Filament\Models\Contracts\FilamentUser;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
-    use HasUuids;
+    use HasUlids;
     use HasFactory;
-    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +24,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'email',
         'nrp',
+        'occupation',
         'password',
+        'permissions',
     ];
 
     /**
@@ -45,6 +46,16 @@ class User extends Authenticatable
      * @var array<string,string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'permissions' => 'array',
     ];
+
+    public function canAccessFilament(): bool
+    {
+        return true;
+    }
+
+    public function setPasswordAttribute(string $value): void
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
 }
