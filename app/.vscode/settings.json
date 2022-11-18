@@ -1,0 +1,7 @@
+{
+    "phpSniffer.autoDetect": true,
+    "phpstan.configFile": "phpstan.neon.dist",
+    "phpstan.options": [
+        "--xdebug"
+    ]
+}

@@ -3,7 +3,7 @@ if [ -f "/etc/bash_completion" ] ; then
 fi
 
 if [ -d "/srv/app/vendor/bin" ]; then
-  export PATH="/srv/vendor/bin:$PATH"
+  export PATH="/srv/app/vendor/bin:$PATH"
 fi
 
 for file in ~/.source.d/*.sh ; do
