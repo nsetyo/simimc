@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 abstract class UploadResource extends Resource
@@ -29,6 +30,17 @@ abstract class UploadResource extends Resource
     public static function getSlug(): string
     {
         return Str::replace('::', '/', static::getCategory()->value);
+    }
+
+    /** @return array<string,array<int,mixed>> */
+    public static function getPages(): array
+    {
+        return [];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('category', static::getCategory());
     }
 
     public static function form(Form $form): Form
