@@ -22,6 +22,11 @@ abstract class UploadResource extends Resource
 
     abstract public static function getCategory(): Categories;
 
+    public static function getBreadcrumb(): string
+    {
+        return Str::headline(static::getCategory()->parent()->label());
+    }
+
     public static function getNavigationLabel(): string
     {
         return Str::after(static::getCategory()->label(), ':: ');
