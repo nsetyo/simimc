@@ -23,7 +23,7 @@ class UserResource extends Resource
 
     protected static string|null $model = User::class;
 
-    protected static string|null $navigationIcon = 'heroicon-o-collection';
+    protected static string|null $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -109,6 +109,6 @@ class UserResource extends Resource
 
     protected static function getNavigationGroup(): string|null
     {
-        return __('Administration');
+        return __('Settings');
     }
 }

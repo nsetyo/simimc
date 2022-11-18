@@ -1,5 +1,7 @@
 {
+    "Filename": "Nama file",
     "Name": "Nama",
     "Occupation": "Jabatan",
-    "Password confirmation": "Konfirmasi Password"
+    "Password confirmation": "Konfirmasi Password",
+    "Year": "Tahun"
 }

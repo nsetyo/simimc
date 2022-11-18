@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::redirect('/', '/admin');
+
+Route::resource('uploads', UploadController::class)->only('show');
+
+Route::redirect('/login', '/admin/login')->name('login');
