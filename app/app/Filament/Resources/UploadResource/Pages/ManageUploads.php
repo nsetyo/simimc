@@ -7,11 +7,17 @@ namespace App\Filament\Resources\UploadResource\Pages;
 use App\Filament\Resources\UploadResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use Illuminate\Support\Str;
 
 abstract class ManageUploads extends ManageRecords
 {
     /** @var class-string<UploadResource> */
     protected static string $resource = UploadResource::class;
+
+    public function getBreadcrumb(): string|null
+    {
+        return Str::after($this->getTitle(), ':: ');
+    }
 
     protected function getTitle(): string
     {
