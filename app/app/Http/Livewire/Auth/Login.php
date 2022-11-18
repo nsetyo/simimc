@@ -8,6 +8,7 @@ use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Facades\Filament;
 use Filament\Forms;
+use Filament\Forms\ComponentContainer;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Http\Responses\Auth\Contracts\LoginResponse;
 use Illuminate\Contracts\View\View;
@@ -15,6 +16,9 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
+/**
+ * @property ComponentContainer $form
+ */
 class Login extends Component implements HasForms
 {
     use Forms\Concerns\InteractsWithForms;
@@ -57,22 +61,18 @@ class Login extends Component implements HasForms
         return app(LoginResponse::class);
     }
 
-    /**
-     * @param array<string,string> $data
-     *
-     * @return array<string,string>
-     */
-    private function getCredentials(array $data): array
+    public function render(): View
     {
-        return Arr::only($data, ['nrp', 'password']);
+        $view = view('filament::login');
+
+        $layout = [$view, 'layout'];
+
+        $layoutArgs = ['filament::components.layouts.card', ['title' => __('filament::login.title')]];
+
+        return call_user_func_array($layout, $layoutArgs);
     }
 
-    /** @param string|string[]|null $message */
-    private function throw(string|array|null $message): never
-    {
-        throw ValidationException::withMessages(['nrp' => $message]);
-    }
-
+    /** @return array<int,Forms\Components\Component> */
     protected function getFormSchema(): array
     {
         return [
@@ -89,14 +89,19 @@ class Login extends Component implements HasForms
         ];
     }
 
-    public function render(): View
+    /**
+     * @param array<string,string> $data
+     *
+     * @return array<string,string>
+     */
+    private function getCredentials(array $data): array
     {
-        $view = view('filament::login');
+        return Arr::only($data, ['nrp', 'password']);
+    }
 
-        $layout = [$view, 'layout'];
-
-        $layoutArgs = ['filament::components.layouts.card', ['title' => __('filament::login.title')]];
-
-        return is_callable($layout) ? call_user_func_array($layout, $layoutArgs) : $view;
+    /** @param string|string[]|null $message */
+    private function throw(string|array|null $message): never
+    {
+        throw ValidationException::withMessages(['nrp' => $message]);
     }
 }

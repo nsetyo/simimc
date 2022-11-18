@@ -38,6 +38,7 @@ abstract class UploadResource extends Resource
         return [];
     }
 
+    /** @return Builder<Upload> */
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->where('category', static::getCategory());
