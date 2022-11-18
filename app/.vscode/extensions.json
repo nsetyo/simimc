@@ -3,6 +3,7 @@
         "sanderronde.phpstan-vscode",
         "wongjn.php-sniffer",
         "bmewburn.vscode-intelephense-client",
-        "neilbrayfield.php-docblocker"
+        "neilbrayfield.php-docblocker",
+        "onecentlin.laravel-blade"
     ]
 }

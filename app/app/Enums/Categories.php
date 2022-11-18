@@ -23,19 +23,38 @@ enum Categories: string
     public function label(): string
     {
         return match ($this) {
-            self::BINPROF_BAHAN_AJAR => 'BinProf :: Bahan Ajar',
-            self::BINPROF_DATA_PERSONEL => 'BinProf :: Data Personel',
-            self::IMC_LAP_ANALISIS_MEDIA => 'IMC :: Laporan Analisis Media',
-            self::INTELUD_ADO => 'Intelud :: ADO',
-            self::INTELUD_DATA_KUAT_UDARA => 'Intelud :: Data Kuat Udara',
-            self::INTELUD_FSC => 'Intelud :: FSC',
-            self::LITPERS_HASIL_MI => 'Litpers :: Hasil MI',
-            self::LITPERS_SC_MITRA => 'Litpers :: SC Mitra',
-            self::LITPERS_SKHPP => 'Litpers :: SKHPP',
-            self::PAMSUT_CATPERS => 'Pamsut :: Catpers',
-            self::PRODINT_BUKU_PETUNJUK => 'Prodint :: Buku Petunjuk',
-            self::PRODINT_LAP_NON_PERIODIK => 'Prodint :: Laporan Non Periodik',
-            self::PRODINT_LAP_PERIODIK => 'Prodint :: Laporan Periodik',
+            self::BINPROF_BAHAN_AJAR => $this->parent()->label() . ' :: Bahan Ajar',
+            self::BINPROF_DATA_PERSONEL => $this->parent()->label() . ' :: Data Personel',
+            self::IMC_LAP_ANALISIS_MEDIA => $this->parent()->label() . ' :: Laporan Analisis Media',
+            self::INTELUD_ADO => $this->parent()->label() . ' :: ADO',
+            self::INTELUD_DATA_KUAT_UDARA => $this->parent()->label() . ' :: Data Kuat Udara',
+            self::INTELUD_FSC => $this->parent()->label() . ' :: FSC',
+            self::LITPERS_HASIL_MI => $this->parent()->label() . ' :: Hasil MI',
+            self::LITPERS_SC_MITRA => $this->parent()->label() . ' :: SC Mitra',
+            self::LITPERS_SKHPP => $this->parent()->label() . ' :: SKHPP',
+            self::PAMSUT_CATPERS => $this->parent()->label() . ' :: Catpers',
+            self::PRODINT_BUKU_PETUNJUK => $this->parent()->label() . ' :: Buku Petunjuk',
+            self::PRODINT_LAP_NON_PERIODIK => $this->parent()->label() . ' :: Laporan Non Periodik',
+            self::PRODINT_LAP_PERIODIK => $this->parent()->label() . ' :: Laporan Periodik',
+        };
+    }
+
+    public function parent(): MainCategory
+    {
+        return match ($this) {
+            self::BINPROF_BAHAN_AJAR,
+            self::BINPROF_DATA_PERSONEL => MainCategory::BINPROF,
+            self::IMC_LAP_ANALISIS_MEDIA => MainCategory::IMC,
+            self::INTELUD_ADO,
+            self::INTELUD_DATA_KUAT_UDARA,
+            self::INTELUD_FSC => MainCategory::INTELUD,
+            self::LITPERS_HASIL_MI,
+            self::LITPERS_SC_MITRA,
+            self::LITPERS_SKHPP => MainCategory::LITPERS,
+            self::PAMSUT_CATPERS => MainCategory::PAMSUT,
+            self::PRODINT_BUKU_PETUNJUK,
+            self::PRODINT_LAP_PERIODIK,
+            self::PRODINT_LAP_NON_PERIODIK => MainCategory::PRODINT
         };
     }
 }
