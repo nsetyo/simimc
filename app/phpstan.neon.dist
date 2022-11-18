@@ -1,9 +1,9 @@
 parameters:
     level: 8
     paths:
-        - config
-        - migrations
-        - src
+        - app
+        - database
+        - routes
         - tests
     excludePaths:
         - vendor/*
