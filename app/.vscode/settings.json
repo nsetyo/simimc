@@ -3,5 +3,7 @@
     "phpstan.configFile": "phpstan.neon.dist",
     "phpstan.options": [
         "--xdebug"
-    ]
+    ],
+    "intelephense.diagnostics.undefinedMethods": false,
+    "intelephense.diagnostics.undefinedFunctions": false
 }
