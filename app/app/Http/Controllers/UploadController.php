@@ -12,6 +12,8 @@ class UploadController extends Controller
 {
     public function show(Upload $upload): StreamedResponse
     {
+        $this->authorize('view', $upload);
+
         return Storage::download($upload->path, $upload->filename);
     }
 }

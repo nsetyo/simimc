@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
+use function Psl\Dict\from_keys;
+use function Psl\Dict\map;
+
 enum Categories: string
 {
     case BINPROF_BAHAN_AJAR       = 'binprof::bahan-ajar';
@@ -56,5 +59,18 @@ enum Categories: string
             self::PRODINT_LAP_PERIODIK,
             self::PRODINT_LAP_NON_PERIODIK => MainCategory::PRODINT
         };
+    }
+
+    /** @return array<string,string[]> */
+    public static function permissions(): array
+    {
+        return from_keys(
+            map(self::cases(), fn (self $cat) => $cat->value),
+            fn () => [
+                UserAction::READ->value,
+                UserAction::CREATE_UPDATE->value,
+                UserAction::DELETE->value,
+            ]
+        );
     }
 }

@@ -9,9 +9,9 @@ use function Psl\Dict\map;
 
 enum UserAction: string
 {
-    case READ   = 'read';
-    case CREATE = 'create';
-    case DELETE = 'delete';
+    case READ          = 'read';
+    case CREATE_UPDATE = 'create&update';
+    case DELETE        = 'delete';
 
     /** @return array<string,string> */
     public static function casesWithLabel(): array

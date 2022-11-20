@@ -6,6 +6,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Categories;
 use App\Models\Upload;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -21,6 +22,20 @@ abstract class UploadResource extends Resource
     protected static string|null $navigationIcon = 'heroicon-o-collection';
 
     abstract public static function getCategory(): Categories;
+
+    public static function canViewAny(): bool
+    {
+        $user = Filament::auth()->user();
+
+        return $user->can('viewAny', [Upload::class, static::getCategory()]);
+    }
+
+    public static function canCreate(): bool
+    {
+        $user = Filament::auth()->user();
+
+        return $user->can('create', [Upload::class, static::getCategory()]);
+    }
 
     public static function getBreadcrumb(): string
     {
@@ -65,6 +80,7 @@ abstract class UploadResource extends Resource
                 ->label(__('File'))
                 ->directory(static::getSlug())
                 ->visibility('private')
+                ->maxSize(100000)
                 ->storeFileNamesIn('filename')
                 ->required(),
             Forms\Components\MarkdownEditor::make('description')
@@ -94,7 +110,7 @@ abstract class UploadResource extends Resource
                     ->translateLabel(),
                 Tables\Columns\TextColumn::make('description')
                     ->searchable()
-                    ->formatStateUsing(fn (string $state) => Str::of($state)
+                    ->formatStateUsing(fn (string|null $state) => Str::of($state ?? '')
                         ->markdown()
                         ->toHtmlString())
                     ->translateLabel(),
@@ -111,7 +127,6 @@ abstract class UploadResource extends Resource
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 

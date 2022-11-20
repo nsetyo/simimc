@@ -81,8 +81,15 @@ services:
         INSTALL_XDEBUG: ${PHP_INSTALL_XDEBUG:-false}
         INSTALL_ZIP_ARCHIVE: ${PHP_INSTALL_ZIP_ARCHIVE:-false}
     working_dir: /srv/app
-    env_file:
-      - ./env/app.env
+    environment:
+      - APP_NAME=SIMC
+      - APP_URL=${APP_URL:-https://simc.localhost}
+      - DB_CONNECTION=pgsql
+      - DB_HOST=database
+      - DB_PORT=5432
+      - DB_DATABASE=${DB_DATABASE:-app}
+      - DB_USERNAME=${DB_USERNAME:-app}
+      - DB_PASSWORD=${DB_PASSWORD:-!ChangeMe!}
     volumes:
       - { <<: [ *bashrc  ] }
       - { <<: [ *gnupg   ] }
@@ -106,8 +113,10 @@ services:
 
   database:
     image: postgres:${DB_VERSION:-14}-alpine
-    env_file:
-      - ./env/postgres.env
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-app}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-!ChangeMe!}
+      - POSTGRES_USER=${DB_USERNAME:-app}
     volumes:
       - ${DB_DATA_PATH:-./storage/database}:/var/lib/postgresql/data:rw
   ### Search Service ###########################################################
@@ -186,8 +195,18 @@ services:
       - ES_SETTING_XPACK_SECURITY_HTTP_SSL_KEY=certs/elasticsearch-node-a/elasticsearch-node-a.key
       - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_CERTIFICATE=certs/elasticsearch-node-a/elasticsearch-node-a.crt
       - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_KEY=certs/elasticsearch-node-a/elasticsearch-node-a.key
-    env_file:
-      - ./env/elasticsearch.env
+      - ES_SETTING_BOOTSTRAP_MEMORY__LOCK=true
+      - ES_SETTING_CLUSTER_NAME=${COMPOSE_PROJECT_NAME}-cluster
+      - ES_SETTING_CLUSTER_INITIAL__MASTER__NODES=elasticsearch-node-a,elasticsearch-node-b
+      - ES_SETTING_INGEST_GEOIP_DOWNLOADER_ENABLED=false
+      - ES_SETTING_XPACK_LICENSE_SELF__GENERATED_TYPE=basic
+      - ES_SETTING_XPACK_SECURITY_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_CERTIFICATE__AUTHORITIES=certs/ca/ca.crt
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_VERIFICATION__MODE=certificate
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_CERTIFICATE__AUTHORITIES=certs/ca/ca.crt
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_VERIFICATION__MODE=certificate
     volumes:
       - ${ES_DATA_PATH:-./storage/elasticsearch}/certs:/usr/share/elasticsearch/config/certs
       - ${ES_DATA_PATH:-./storage/elasticsearch}/node-a:/usr/share/elasticsearch/data
@@ -219,6 +238,19 @@ services:
       - ES_SETTING_XPACK_SECURITY_HTTP_SSL_KEY=certs/elasticsearch-node-b/elasticsearch-node-b.key
       - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_CERTIFICATE=certs/elasticsearch-node-b/elasticsearch-node-b.crt
       - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_KEY=certs/elasticsearch-node-b/elasticsearch-node-b.key
+      - ES_SETTING_BOOTSTRAP_MEMORY__LOCK=true
+      - ES_SETTING_CLUSTER_NAME=${COMPOSE_PROJECT_NAME}-cluster
+      - ES_SETTING_CLUSTER_INITIAL__MASTER__NODES=elasticsearch-node-a,elasticsearch-node-b
+      - ES_SETTING_INGEST_GEOIP_DOWNLOADER_ENABLED=false
+      - ES_SETTING_XPACK_LICENSE_SELF__GENERATED_TYPE=basic
+      - ES_SETTING_XPACK_SECURITY_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_CERTIFICATE__AUTHORITIES=certs/ca/ca.crt
+      - ES_SETTING_XPACK_SECURITY_HTTP_SSL_VERIFICATION__MODE=certificate
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_ENABLED=true
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_CERTIFICATE__AUTHORITIES=certs/ca/ca.crt
+      - ES_SETTING_XPACK_SECURITY_TRANSPORT_SSL_VERIFICATION__MODE=certificate
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD:-!ChangeMe!}
     volumes:
       - ${ES_DATA_PATH:-./storage/elasticsearch}/certs:/usr/share/elasticsearch/config/certs
       - ${ES_DATA_PATH:-./storage/elasticsearch}/node-b:/usr/share/elasticsearch/data
@@ -230,8 +262,14 @@ services:
       elastic-node-b:
         condition: service_healthy
     image: kibana:${ELASTIC_VERSION:-8.5.0}
-    env_file:
-      - ./env/kibana.env
+    environment:
+      - ELASTICSEARCH_HOSTS=https://elasticsearch-node-a:9200
+      - ELASTICSEARCH_PASSWORD=${ELASTIC_PASSWORD:-!ChangeMe!}
+      - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - SERVER_PUBLICBASEURL=https://kibana.${COMPOSE_PROJECT_NAME}.localhost
+      - SERVERNAME=kibana
+      - TELEMETRY_ENABLED=false
     volumes:
       - ${ES_DATA_PATH:-./storage/elasticsearch}/certs:/usr/share/kibana/config/certs
     networks:
