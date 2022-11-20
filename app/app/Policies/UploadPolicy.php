@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\Categories;
+use App\Enums\UserAction;
 use App\Models\Upload;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Arr;
 
 class UploadPolicy
 {
@@ -16,9 +19,12 @@ class UploadPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): Response|bool
+    public function viewAny(User $user, Categories $category): Response|bool
     {
-        return true;
+        /** @var string[] $permissions */
+        $permissions = Arr::get($user->permissions, $category->value, []);
+
+        return in_array(UserAction::READ->value, $permissions);
     }
 
     /**
@@ -26,15 +32,25 @@ class UploadPolicy
      */
     public function view(User $user, Upload $upload): Response|bool
     {
-        return true;
+        if ($user->id === $upload->user_id) {
+            return true;
+        }
+
+        /** @var string[] $permissions */
+        $permissions = Arr::get($user->permissions, $upload->category->value, []);
+
+        return in_array(UserAction::READ->value, $permissions);
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): Response|bool
+    public function create(User $user, Categories $category): Response|bool
     {
-        return true;
+        /** @var string[] $permissions */
+        $permissions = Arr::get($user->permissions, $category->value, []);
+
+        return in_array(UserAction::CREATE_UPDATE->value, $permissions);
     }
 
     /**
@@ -42,7 +58,10 @@ class UploadPolicy
      */
     public function update(User $user, Upload $upload): Response|bool
     {
-        return true;
+        /** @var string[] $permissions */
+        $permissions = Arr::get($user->permissions, $upload->category->value, []);
+
+        return in_array(UserAction::CREATE_UPDATE->value, $permissions);
     }
 
     /**
@@ -50,22 +69,13 @@ class UploadPolicy
      */
     public function delete(User $user, Upload $upload): Response|bool
     {
-        return true;
-    }
+        if ($user->id === $upload->user_id) {
+            return true;
+        }
 
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Upload $upload): Response|bool
-    {
-        return true;
-    }
+        /** @var string[] $permissions */
+        $permissions = Arr::get($user->permissions, $upload->category->value, []);
 
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Upload $upload): Response|bool
-    {
-        return true;
+        return in_array(UserAction::DELETE->value, $permissions);
     }
 }

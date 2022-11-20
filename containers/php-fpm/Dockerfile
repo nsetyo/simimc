@@ -8,6 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 # Start as root
 USER root
 
+COPY conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
+
+RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+
 # always run apt update when start and after add new source list, then clean up at end.
 RUN pecl channel-update pecl.php.net \
     && apt-get update -y \

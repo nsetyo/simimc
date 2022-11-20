@@ -10,10 +10,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->ulid('id')->primary();
@@ -22,17 +20,18 @@ return new class extends Migration
             $table->string('filename');
             $table->string('path');
             $table->text('description')->nullable();
-            $table->foreignUlid('user_id')->constrained();
+            $table->foreignUlid('user_id')
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('uploads');
     }

@@ -49,12 +49,17 @@ class UserResource extends Resource
             Forms\Components\Fieldset::make('Permissions')
                 ->columnSpanFull()
                 ->columns(3)
-                ->schema(map(Categories::cases(), function (Categories $cat) {
+                ->schema(array_merge(map(Categories::cases(), function (Categories $cat) {
                     return CheckboxList::make('permissions.' . $cat->value)
                         ->label($cat->label())
                         ->options(UserAction::casesWithLabel())
                         ->translateLabel();
-                })),
+                }), [
+                    CheckboxList::make('permissions.settings::user')
+                        ->label('Settings :: User')
+                        ->options(UserAction::casesWithLabel())
+                        ->translateLabel(),
+                ])),
         ]);
     }
 
@@ -95,7 +100,6 @@ class UserResource extends Resource
             Tables\Actions\DeleteAction::make(),
         ])
         ->bulkActions([
-            Tables\Actions\DeleteBulkAction::make(),
         ]);
     }
 
