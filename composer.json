@@ -1,0 +1,16 @@
+{
+    "name": "nsetyo/sim-imc",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Setyo",
+            "email": "setyo@pm.me"
+        }
+    ],
+    "require": {},
+    "scripts": {
+        "post-install-cmd": [
+            "cd app && composer install"
+        ]
+    }
+}
