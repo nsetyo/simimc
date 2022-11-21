@@ -26,19 +26,19 @@ enum Categories: string
     public function label(): string
     {
         return match ($this) {
-            self::BINPROF_BAHAN_AJAR => $this->parent()->label() . ' :: Bahan Ajar',
-            self::BINPROF_DATA_PERSONEL => $this->parent()->label() . ' :: Data Personel',
-            self::IMC_LAP_ANALISIS_MEDIA => $this->parent()->label() . ' :: Laporan Analisis Media',
-            self::INTELUD_ADO => $this->parent()->label() . ' :: ADO',
-            self::INTELUD_DATA_KUAT_UDARA => $this->parent()->label() . ' :: Data Kuat Udara',
-            self::INTELUD_FSC => $this->parent()->label() . ' :: FSC',
-            self::LITPERS_HASIL_MI => $this->parent()->label() . ' :: Hasil MI',
-            self::LITPERS_SC_MITRA => $this->parent()->label() . ' :: SC Mitra',
-            self::LITPERS_SKHPP => $this->parent()->label() . ' :: SKHPP',
-            self::PAMSUT_CATPERS => $this->parent()->label() . ' :: Catpers',
-            self::PRODINT_BUKU_PETUNJUK => $this->parent()->label() . ' :: Buku Petunjuk',
-            self::PRODINT_LAP_NON_PERIODIK => $this->parent()->label() . ' :: Laporan Non Periodik',
-            self::PRODINT_LAP_PERIODIK => $this->parent()->label() . ' :: Laporan Periodik',
+            self::BINPROF_BAHAN_AJAR => $this->parent()->label() . ' - Bahan Ajar',
+            self::BINPROF_DATA_PERSONEL => $this->parent()->label() . ' - Data Personel',
+            self::IMC_LAP_ANALISIS_MEDIA => $this->parent()->label() . ' - Laporan Analisis Media',
+            self::INTELUD_ADO => $this->parent()->label() . ' - ADO',
+            self::INTELUD_DATA_KUAT_UDARA => $this->parent()->label() . ' - Data Kuat Udara',
+            self::INTELUD_FSC => $this->parent()->label() . ' - FSC',
+            self::LITPERS_HASIL_MI => $this->parent()->label() . ' - Hasil MI',
+            self::LITPERS_SC_MITRA => $this->parent()->label() . ' - SC Mitra',
+            self::LITPERS_SKHPP => $this->parent()->label() . ' - SKHPP',
+            self::PAMSUT_CATPERS => $this->parent()->label() . ' - Catpers',
+            self::PRODINT_BUKU_PETUNJUK => $this->parent()->label() . ' - Buku Petunjuk',
+            self::PRODINT_LAP_NON_PERIODIK => $this->parent()->label() . ' - Laporan Non Periodik',
+            self::PRODINT_LAP_PERIODIK => $this->parent()->label() . ' - Laporan Periodik',
         };
     }
 

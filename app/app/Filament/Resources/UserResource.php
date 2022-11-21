@@ -56,7 +56,7 @@ class UserResource extends Resource
                         ->translateLabel();
                 }), [
                     CheckboxList::make('permissions.settings::user')
-                        ->label('Settings :: User')
+                        ->label('Settings - User')
                         ->options(UserAction::casesWithLabel())
                         ->translateLabel(),
                 ])),
