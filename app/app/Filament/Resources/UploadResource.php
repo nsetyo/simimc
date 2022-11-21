@@ -44,7 +44,7 @@ abstract class UploadResource extends Resource
 
     public static function getNavigationLabel(): string
     {
-        return Str::after(static::getCategory()->label(), ':: ');
+        return Str::after(static::getCategory()->label(), '- ');
     }
 
     public static function getSlug(): string

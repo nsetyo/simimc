@@ -16,7 +16,7 @@ abstract class ManageUploads extends ManageRecords
 
     public function getBreadcrumb(): string|null
     {
-        return Str::after($this->getTitle(), ':: ');
+        return Str::after($this->getTitle(), '- ');
     }
 
     protected function getTitle(): string
