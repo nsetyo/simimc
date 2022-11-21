@@ -8,7 +8,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
+        "ext-bcmath": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-sodium": "*",
+        "ext-intl": "*",
         "azjezz/psl": "^2.1",
         "filament/filament": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
