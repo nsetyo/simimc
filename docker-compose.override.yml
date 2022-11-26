@@ -10,7 +10,3 @@ services:
     labels:
       caddy: db.${COMPOSE_PROJECT_NAME}.localhost
       caddy.reverse_proxy: "{{upstreams 8080}}"
-  kibana:
-    labels:
-      caddy: kibana.${COMPOSE_PROJECT_NAME}.localhost
-      caddy.reverse_proxy: "{{upstreams 5601}}"
