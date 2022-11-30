@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Filament\Facades\Filament;
 use Filament\Navigation\UserMenuItem;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
     {
         Filament::serving(function () {
             Filament::registerViteTheme('resources/css/app.css');
+
+            Filament::registerRenderHook(
+                'footer.start',
+                fn (): string => Blade::render('Copyright &copy; IMC Dispamsanau 2022'),
+            );
 
             Filament::registerUserMenuItems([
                 UserMenuItem::make()
