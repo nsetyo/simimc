@@ -1,1 +1,17 @@
-@import '../../vendor/filament/filament/resources/css/app.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '../../vendor/filament/filament/dist/app.css';
+
+.filament-sidebar {
+    @apply border-transparent
+}
+
+.filament-sidebar-header, .filament-main-topbar {
+    @apply bg-sky-700
+}
+
+.filament-main-topbar .filament-breadcrumbs {
+    @apply text-white
+}
