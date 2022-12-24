@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nrp')->unique();
             $table->string('occupation');
             $table->string('password');
-            $table->json('permissions')->default('[]');
+            $table->json('permissions')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
